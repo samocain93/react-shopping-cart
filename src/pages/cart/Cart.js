@@ -1,11 +1,26 @@
-import React from 'react'
+import React, { useContext } from 'react';
+import { products } from '../../products';
+import { ShopContext } from '../../context/shop-context';
+import CartItem from './CartItem';
+import './cart.css'
 
 const Cart = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+  const { cartItems } = useContext(ShopContext);
 
-export default Cart
+  return (
+    <div className='cart'>
+      <div>
+        <h1>My Cart Items</h1>
+      </div>
+      <div className='cart-items'>
+        {products.map((product) => {
+          if (cartItems[product.id] !== 0) {
+            return <CartItem data={product} key={product.id} />;
+          }
+        })}
+      </div>
+    </div>
+  );
+};
+
+export default Cart;
